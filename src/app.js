@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 
 app.use(
   cors({
-    origin: "http://localhost:5500",
+    origin: ["http://localhost:5500", "https://web-una.vercel.app"],
     credentials: true,
   })
 );
