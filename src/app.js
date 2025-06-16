@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3000 || process.env.PORT;
 const routes = require('./routes/index');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 
 app.use(
   cors({
-    origin: "http://localhost:5500",
+    origin: "*",
     credentials: true,
   })
 );
