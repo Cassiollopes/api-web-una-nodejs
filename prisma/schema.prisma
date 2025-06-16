@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ALUNO
+  PROFESSOR
+  COORDENADOR
+}
+
+enum Modalidade {
+  PRESENCIAL
+  REMOTO
+  HIBRIDO
+}
+
+enum Curso {
+  CIENCIA_DA_COMPUTACAO
+  ENGENHARIA_DE_SOFTWARE
+  ADMINISTRACAO
+  DIREITO
+  PSICOLOGIA
+  ENGENHARIA_CIVIL
+  ODONTOLOGIA
+}
+
+enum Campus {
+  DIVINOPOLIS
+  BELO_HORIZONTE
+  BETIM
+  CONTAGEM
+  BOM_DESPACHO
+  ITABIRA
+  ITAJUBA
+  JUIZ_DE_FORA
+}
+
+model Usuario {
+  id        String @id @default(uuid())
+  nome      String
+  email     String @unique
+  senha     String
+  curso     Curso
+  campus    Campus
+  matricula String @unique
+  role      Role   @default(ALUNO)
+  imageUrl  String? @map("image_url")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  posts Post[]
+
+  @@map("usuarios")
+}
+
+model Post {
+  id         String     @id @default(uuid())
+  autorId    String     @map("autor_id")
+  titulo     String
+  descricao  String?
+  imageUrl   String?    @map("image_url")
+  link       String?
+  modalidade Modalidade?
+  data       DateTime?
+  local      String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  autor Usuario @relation(fields: [autorId], references: [id], onDelete: Cascade)
+
+  @@map("posts")
+}
