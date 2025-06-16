@@ -7,8 +7,8 @@ class AuthController {
 
       res.cookie("auth-token", result.token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: "production",
+        sameSite: "none",
         maxAge: 24 * 60 * 60 * 1000,
         path: "/",
       });
@@ -30,8 +30,8 @@ class AuthController {
     try {
       res.clearCookie("auth-token", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: "production",
+        sameSite: "none",
         path: "/",
       });
       
