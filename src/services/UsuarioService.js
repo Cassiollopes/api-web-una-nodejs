@@ -74,6 +74,7 @@ class UsuarioService {
           campus: true,
           curso: true,
           role: true,
+          imageUrl: true,
         }
       });
 
